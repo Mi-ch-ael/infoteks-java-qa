@@ -8,11 +8,11 @@ public class IOProcessor {
     private final String username;
     private final String prompt;
     private final Scanner scanner;
-    private final Client client;
+    private final CommandRunner commandRunner;
 
-    public IOProcessor(InputStream stream, Client client, String username, String address) {
+    public IOProcessor(InputStream stream, CommandRunner commandRunner, String username, String address) {
         this.scanner = new Scanner(stream);
-        this.client = client;
+        this.commandRunner = commandRunner;
         this.prompt = String.format("%s@%s> ", username, address.split("/")[0]);
         this.username = username;
     }
@@ -42,7 +42,7 @@ public class IOProcessor {
                             System.out.print(prompt);
                             continue;
                         }
-                        System.out.println(client.listStudents());
+                        System.out.println(commandRunner.list());
                         break;
                     case "find":
                     case "delete":
@@ -62,13 +62,10 @@ public class IOProcessor {
                             continue;
                         }
                         if (args[0].equals("find")) {
-                            System.out.println(client.findStudentById(id));
+                            System.out.println(commandRunner.find(id));
                         }
                         if (args[0].equals("delete")) {
-                            if(!client.deleteStudentById(id)) {
-                                System.out.printf("Could not delete a student: student with id=%d not found\n",
-                                        id);
-                            }
+                            System.out.println(commandRunner.delete(id));
                         }
                         break;
                     case "add":
@@ -78,9 +75,7 @@ public class IOProcessor {
                             System.out.print(prompt);
                             continue;
                         }
-                        if(!client.addStudent(args[1])) {
-                            System.out.println("Failed to add student: all valid ids are already in use.");
-                        }
+                        System.out.println(commandRunner.add(args[1]));
                         break;
                     case "quit":
                         System.out.println("Bye");

@@ -37,7 +37,7 @@ public class JSONParser {
         return result;
     }
 
-    public String stringify(List<Student> students) throws ScriptException {
+    public String stringify(List<Student> students) {
         return String.format("{\"students\":%s}", students.toString());
     }
 }

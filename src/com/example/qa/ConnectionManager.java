@@ -11,12 +11,12 @@ public class ConnectionManager {
 
     public ConnectionManager(String username, String password, String fullPath) throws MalformedURLException {
         String urlString = String.format("ftp://%s:%s@%s", username, password, fullPath);
-        System.out.println(urlString);
         url = new URL(urlString);
     }
 
     public String getStudents() throws IOException {
         URLConnection conn = url.openConnection();
+        conn.setReadTimeout(5000);
         InputStream inputStream = conn.getInputStream();
         return new BufferedReader(
                 new InputStreamReader(inputStream))
