@@ -1,0 +1,22 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite" verbose="2" >
+    <test name="Unit-tests">
+        <groups>
+            <run>
+                <exclude name="computational-heavy" />
+            </run>
+        </groups>
+        <classes>
+            <class name="com.example.qa.TestJSONParser"/>
+            <class name="com.example.qa.TestConnection"/>
+            <class name="com.example.qa.TestClient"/>
+            <class name="com.example.qa.TestIOProcessor"/>
+        </classes>
+    </test>
+    <test name="Integration-tests">
+        <classes>
+            <class name="com.example.qa.TestSystem"/>
+        </classes>
+    </test>
+</suite>

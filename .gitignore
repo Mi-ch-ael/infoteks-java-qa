@@ -3,3 +3,8 @@
 
 bin
 out
+target
+test-output
+
+dependency-reduced-pom.xml
+
